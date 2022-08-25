@@ -1,0 +1,13 @@
+.card__recycle-bin {
+  width: 18px;
+  height: 19px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+}
+
+.card__recycle-byn:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
