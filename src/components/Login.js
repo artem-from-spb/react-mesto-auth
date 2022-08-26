@@ -1,10 +1,23 @@
 import { Link, useHistory } from "react-router-dom";
-import { useState } from 'react';
+import { useState } from "react";
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const history = useHistory();
+function Login(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+  }
+
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    props.onLogin({ email, password });
+  }
 
   return (
     <section className="login">
@@ -12,8 +25,7 @@ function Login() {
       <form
         className="login__form"
         noValidate
-        //     name={formName}
-        //     onSubmit={onSubmit}
+        onSubmit={handleSubmit}
       >
         <input
           type="email"
@@ -22,8 +34,8 @@ function Login() {
           minLength="5"
           maxLength="{200}"
           placeholder="Email"
-          //        onChange={handleNameChange}
-          //       value={email || ''}
+          onChange={handleEmailChange}
+          value={email || ''}
         />
         <input
           type="password"
@@ -32,8 +44,8 @@ function Login() {
           minLength="{2}"
           maxLength="{200}"
           placeholder="Пароль"
-          //         onChange={handleDescriptionChange}
-          //        value={password || ""}
+          onChange={handlePasswordChange}
+          value={password || ""}
         />
         <button
           className="login__submit-button"

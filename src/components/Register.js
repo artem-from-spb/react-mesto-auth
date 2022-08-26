@@ -1,14 +1,30 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-function Register() {
+function Register(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+  }
+
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    props.onRegister({ email, password });
+  }
+
   return (
     <section className="login">
       <h2 className="login__title">Регистрация</h2>
       <form
         className="login__form"
-        noValidate
-        //     name={formName}
-        //     onSubmit={onSubmit}
+        onSubmit={handleSubmit}
       >
         <input
           type="email"
@@ -17,8 +33,8 @@ function Register() {
           minLength="5"
           maxLength="{200}"
           placeholder="Email"
-          //        onChange={handleNameChange}
-          //       value={email || ''}
+          onChange={handleEmailChange}
+          value={email || ""}
         />
         <input
           type="password"
@@ -27,8 +43,8 @@ function Register() {
           minLength="{2}"
           maxLength="{200}"
           placeholder="Пароль"
-          //         onChange={handleDescriptionChange}
-          //        value={password || ""}
+          onChange={handlePasswordChange}
+          value={password || ""}
         />
         <button
           className="login__submit-button"

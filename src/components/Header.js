@@ -1,4 +1,5 @@
 import logo from "../images/logo.svg";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -7,9 +8,9 @@ function Header() {
         <img src={logo} className="header__logo" alt="Логотип Место" />
         <div className="header__login-block">
           <p className="header__email">email@mail.com</p>
-          <a className="header__enter-link" href="">
+          <Link className="header__enter-link" to="/">
             Войти
-          </a>
+          </Link>
         </div>
       </div>
     </header>
