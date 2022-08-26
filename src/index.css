@@ -20,6 +20,8 @@
 
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__block/header__block.css);
+@import url(./blocks/header/__enter-link/header__enter-link.css);
 
 @import url(./blocks/page/page.css);
 
@@ -54,3 +56,10 @@
 @import url(./blocks/popup/__error/_active/popup__error_active.css);
 @import url(./blocks/popup/__button-save/_confirm/popup__button-save_confirm.css);
 @import url(./blocks/popup/__title/_confirm/popup__title_confirm.css);
+
+@import url(./blocks/login/login.css);
+@import url(./blocks/login/__enter-link/login__enter-link.css);
+@import url(./blocks/login/__form/login__form.css);
+@import url(./blocks/login/__input/login__input.css);
+@import url(./blocks/login/__submit-button/login__submit-button.css);
+@import url(./blocks/login/__title/login__title.css);
