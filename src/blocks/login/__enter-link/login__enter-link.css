@@ -6,3 +6,7 @@
   margin: 0;
   text-decoration: none;
 }
+
+.login__enter-link:hover {
+  opacity: 0.6;
+}

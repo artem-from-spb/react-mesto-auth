@@ -5,9 +5,12 @@ function Header() {
     <header className="header">
       <div className="header__block">
         <img src={logo} className="header__logo" alt="Логотип Место" />
-        <a className="header__enter-link" href="">
-          Войти
-        </a>
+        <div className="header__login-block">
+          <p className="header__email">email@mail.com</p>
+          <a className="header__enter-link" href="">
+            Войти
+          </a>
+        </div>
       </div>
     </header>
   );

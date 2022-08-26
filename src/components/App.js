@@ -10,9 +10,57 @@ import { api } from "../utils/Api";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+
 import Register from "./Register";
+import { Route, Switch, useHistory } from "react-router-dom";
+import Login from "./Login";
+import InfoTooltip from "./InfoTooltip";
+import ProtectedRoute from "./ProtectedRoute";
+import * as Auth from "../utils/Auth";
 
 function App() {
+  //////////////////////////////////////////////////////////////////////////////////////////
+  const history = useHistory();
+
+  const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+
+    if (jwt) {
+      Auth(jwt);
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    if (loggedIn) history.push("/main");
+  }, [loggedIn]);
+
+  function onRegister({ password, email }) {
+    return Auth.register(password, email).then((res) => {
+      if (!res || res.statusCode === 400)
+        throw new Error("Что-то пошло не так");
+      return res;
+    });
+  }
+
+  function onLogin({ email, password }) {
+    return Auth.authorize(email, password).then((res) => {
+      if (!res) throw new Error("Неправильные имя пользователя или пароль");
+      if (res.jwt) {
+        setLoggedIn(true);
+        localStorage.setItem("jwt", res.jwt);
+      }
+    });
+  }
+
+  function onSignOut() {
+    localStorage.removeItem("jwt");
+    setLoggedIn(false);
+    history.push("/sign-in");
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -120,17 +168,30 @@ function App() {
       <div>
         <Header />
 
-        <Register />
+        <InfoTooltip />
 
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-          cards={cards}
-        />
+        <Switch>
+          <Route path="/sign-up">
+            <Register />
+          </Route>
+
+          <Route path="/sign-in">
+            <Login />
+          </Route>
+
+          <ProtectedRoute
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+            cards={cards}
+            path="/"
+            component={Main}
+            loggedIn={loggedIn}
+          />
+        </Switch>
 
         <Footer />
 

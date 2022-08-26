@@ -1,7 +1,6 @@
-.login {
+.header__login-block {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    margin: 54px auto 100px auto;
 }

@@ -3,6 +3,10 @@
   font-size: 18px;
   line-height: 22px;
   color: #ffffff;
-  padding-top: 51px;
   text-decoration: none;
+  margin: 0;
+}
+
+.header__enter-link:hover {
+  opacity: 0.6;
 }
