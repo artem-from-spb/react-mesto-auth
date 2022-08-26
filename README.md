@@ -12,3 +12,4 @@ Mesto Russia
 Планы по доработке: добавить валидацию, ночную тему, лоадеры
 
 https://artem-from-spb.github.io/mesto-react/
+222
