@@ -4,7 +4,6 @@ import Header from "./Header";
 import ImagePopup from "./ImagePopup";
 import Main from "./Main";
 import PopupWithForm from "./PopupWithForm";
-import bin from "../images/recycle-bin.svg";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/Api";
 import EditProfilePopup from "./EditProfilePopup";
@@ -41,6 +40,25 @@ function App() {
 
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
+
+  function checkToken() {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      Auth.checkData(token)
+        .then((res) => {
+          if (res.data) {
+            setEmail(res.data.email);
+            setLoggedIn(true);
+            history.push("/");
+          }
+        })
+        .catch((err) => alert(err));
+    }
+  }
+
+  useEffect(() => {
+    checkToken();
+  }, []);
 
   useEffect(() => {
     if (loggedIn) {
@@ -133,21 +151,6 @@ function App() {
       .catch((err) => alert(err));
   }
 
-  function checkToken() {
-    const token = localStorage.getItem("jwt");
-    if (token) {
-      Auth.checkData(token)
-        .then((res) => {
-          if (res.data) {
-            setEmail(res.data.email);
-            setLoggedIn(true);
-            history.push("/");
-          }
-        })
-        .catch((err) => alert(err));
-    }
-  }
-
   function handleRegister({ password, email }) {
     Auth.register(password, email)
       .then(() => {
@@ -219,6 +222,10 @@ function App() {
             component={Main}
             loggedIn={loggedIn}
           />
+
+          <Route>
+            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+          </Route>
         </Switch>
 
         <Footer />
