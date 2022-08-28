@@ -1,16 +1,20 @@
-import ok from "../images/Union.png";
-import error from "../images/Unionred.png";
+
 import Close_Icon from "../images/Close_Icon.svg";
 
-function InfoTooltip() {
+function InfoTooltip(props) {
   return (
-    <div className="infoTooltip">
-      <div className="infoTooltip__popup">
-        <img src={ok} className="infoTooltip__image" alt="Success" />
-        <p className="infoTooltip__message">sssssssssssssssssssss</p>
+    <div className={`infoTooltip ${
+      props.isOpen ? "infoTooltip_opened" : ""
+    }`}>
+      <div
+        className='infoTooltip__popup'
+      >
+        <img src={props.image} className="infoTooltip__image" alt="Success" />
+        <p className="infoTooltip__message">{props.message}</p>
         <button
           type="button"
-          className="popup__button-close" /* onClick={onClose} */
+          className="popup__button-close"
+          onClick={props.onClose}
         >
           <img
             src={Close_Icon}
@@ -22,8 +26,5 @@ function InfoTooltip() {
     </div>
   );
 }
-
-//{loggedIn ? ok : error}
-//{loggedIn ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз.'}
 
 export default InfoTooltip;

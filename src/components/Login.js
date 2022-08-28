@@ -1,4 +1,3 @@
-import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 
 function Login(props) {
@@ -17,16 +16,14 @@ function Login(props) {
     e.preventDefault();
 
     props.onLogin({ email, password });
+    setEmail("");
+    setPassword("");
   }
 
   return (
     <section className="login">
       <h2 className="login__title">Вход</h2>
-      <form
-        className="login__form"
-        noValidate
-        onSubmit={handleSubmit}
-      >
+      <form className="login__form" onSubmit={handleSubmit}>
         <input
           type="email"
           className="login__input"
@@ -35,7 +32,7 @@ function Login(props) {
           maxLength="{200}"
           placeholder="Email"
           onChange={handleEmailChange}
-          value={email || ''}
+          value={email || ""}
         />
         <input
           type="password"

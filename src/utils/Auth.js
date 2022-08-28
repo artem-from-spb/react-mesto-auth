@@ -35,15 +35,15 @@ export function authorize(email, password) {
     })
     .then((response => response.json()))
     .then((data) => {
-      if (data.jwt){
-        localStorage.setItem('jwt', data.jwt);
+      if (data.token){
+        localStorage.setItem('token', data.token);
         return data;
       }
     })
     .catch(err => console.log(err))
   }; 
 
-export function getContent(token) {
+export function checkData(token) {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {

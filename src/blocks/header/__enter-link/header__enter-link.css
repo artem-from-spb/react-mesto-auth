@@ -9,4 +9,5 @@
 
 .header__enter-link:hover {
   opacity: 0.6;
+  cursor: pointer;
 }
