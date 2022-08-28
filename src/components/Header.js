@@ -1,5 +1,5 @@
 import logo from "../images/logo.svg";
-import { Link, Route, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import React from "react";
 
 function Header(props) {
@@ -10,11 +10,7 @@ function Header(props) {
       <div className="header__block">
         <img src={logo} className="header__logo" alt="Логотип Место" />
         <div className="header__login-block">
-          {props.loggedIn ? (
-            <p className="header__email">{props.userEmail}</p>
-          ) : (
-            ""
-          )}
+          {props.loggedIn ? <p className="header__email">{props.email}</p> : ""}
 
           {props.loggedIn ? (
             <Link

@@ -70,3 +70,4 @@
 @import url(./blocks/infoTooltip/__image/infoTooltip__image.css);
 @import url(./blocks/infoTooltip/__message/infoTooltip__message.css);
 @import url(./blocks/infoTooltip/__popup/infoTooltip__popup.css);
+@import url(./blocks/infoTooltip/_opened/infoTooltip_opened.css);

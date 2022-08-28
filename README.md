@@ -1,15 +1,8 @@
-Mesto Russia
+Mesto Russia Auth
 
 Учебный проект. 
-Тот же проект mesto, только на React
+Проект mesto-react с возможностью авторизации.
 
-20.06
-Проект перенесен на 1/3
+Планы по доработке: мобильная версия, лоадер
 
-22.08
-Проект перенесен на 2/3
-
-Планы по доработке: добавить валидацию, ночную тему, лоадеры
-
-https://artem-from-spb.github.io/mesto-react/
-222555
+https://artem-from-spb.github.io/react-mesto-auth/

@@ -1,15 +1,10 @@
-
 import Close_Icon from "../images/Close_Icon.svg";
 
 function InfoTooltip(props) {
   return (
-    <div className={`infoTooltip ${
-      props.isOpen ? "infoTooltip_opened" : ""
-    }`}>
-      <div
-        className='infoTooltip__popup'
-      >
-        <img src={props.image} className="infoTooltip__image" alt="Success" />
+    <div className={`infoTooltip ${props.isOpen ? "infoTooltip_opened" : ""}`}>
+      <div className="infoTooltip__popup">
+        <img src={props.image} className="infoTooltip__image" alt="State" />
         <p className="infoTooltip__message">{props.message}</p>
         <button
           type="button"

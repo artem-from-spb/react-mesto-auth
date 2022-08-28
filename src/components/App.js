@@ -35,34 +35,12 @@ function App() {
   const [cards, setCards] = useState([]);
 
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
+
   const [infoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [infoTooltipImage, setInfoTooltipImage] = useState(ok);
+
   const [message, setMessage] = useState("");
-
-  function checkToken() {
-    const token = localStorage.getItem("jwt");
-    if (token) {
-      Auth.checkData(token)
-        .then((res) => {
-          if (res.data) {
-            setUserEmail(res.data.email);
-            //Авторизуем пользователя
-            setLoggedIn(true);
-
-            //Переадресация пользователя на основную страницу со всей функциональностью приложения
-            history.push("/");
-          }
-        })
-        .catch((err) => {
-          console.log(`Ошибка ${err}`);
-        });
-    }
-  }
-
-  useEffect(() => {
-    checkToken();
-  }, []);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     if (loggedIn) {
@@ -89,10 +67,6 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
-  function handleCardClick(card) {
-    setSelectedCard(card);
-  }
-
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -101,24 +75,8 @@ function App() {
     setInfoTooltipOpen(false);
   }
 
-  function handleUpdateUser(user) {
-    api
-      .editProfileData(user)
-      .then((res) => {
-        setCurrentUser(res);
-        closeAllPopups();
-      })
-      .catch((err) => alert(err));
-  }
-
-  function handleUpdateAvatar(src) {
-    api
-      .avatarPictureNew(src.avatar)
-      .then((res) => {
-        setCurrentUser(res);
-        closeAllPopups();
-      })
-      .catch((err) => alert(err));
+  function handleCardClick(card) {
+    setSelectedCard(card);
   }
 
   function handleCardLike(card) {
@@ -145,6 +103,26 @@ function App() {
       .catch((err) => alert(err));
   }
 
+  function handleUpdateUser(user) {
+    api
+      .editProfileData(user)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => alert(err));
+  }
+
+  function handleUpdateAvatar(src) {
+    api
+      .avatarPictureNew(src.avatar)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => alert(err));
+  }
+
   function handleAddPlaceSubmit(card) {
     api
       .addNewCard(card)
@@ -155,21 +133,33 @@ function App() {
       .catch((err) => alert(err));
   }
 
+  function checkToken() {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      Auth.checkData(token)
+        .then((res) => {
+          if (res.data) {
+            setEmail(res.data.email);
+            setLoggedIn(true);
+            history.push("/");
+          }
+        })
+        .catch((err) => alert(err));
+    }
+  }
+
   function handleRegister({ password, email }) {
     Auth.register(password, email)
       .then(() => {
         setInfoTooltipImage(ok);
         setMessage("Вы успешно зарегистрировались!");
         setInfoTooltipOpen(true);
-
         history.push("/sign-in");
       })
-      .catch((err) => {
+      .catch(() => {
         setInfoTooltipImage(error);
         setMessage("Что-то пошло не так! Попробуйте ещё раз.");
         setInfoTooltipOpen(true);
-
-        console.log(`Ошибка ${err}`);
       });
   }
 
@@ -180,18 +170,13 @@ function App() {
           setLoggedIn(true);
           localStorage.setItem("jwt", res.token);
           checkToken();
-
-          //Переадресация пользователя на основную страницу со всей функциональностью приложения
           history.push("/");
         }
       })
-      .catch((err) => {
-        //Попап ошибки входа
+      .catch(() => {
         setInfoTooltipImage(error);
         setMessage("Что-то пошло не так! Попробуйте ещё раз.");
         setInfoTooltipOpen(true);
-
-        console.log(`Ошибка ${err}`);
       });
   }
 
@@ -200,17 +185,10 @@ function App() {
     localStorage.removeItem("jwt");
   }
 
-
-
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
-        <Header
-          userEmail={userEmail}
-          onSignOut={handleLogOut}
-          loggedIn={loggedIn}
-        />
+        <Header email={email} onSignOut={handleLogOut} loggedIn={loggedIn} />
 
         <InfoTooltip
           isOpen={infoTooltipOpen}
@@ -241,10 +219,6 @@ function App() {
             component={Main}
             loggedIn={loggedIn}
           />
-
-          <Route>
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
-          </Route>
         </Switch>
 
         <Footer />
