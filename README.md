@@ -31,7 +31,7 @@
 - HTML
 - CSS
 - Классы, наследование
-- Webpack
+- Create React App
 - Git
 - Flexbox
 - Figma
