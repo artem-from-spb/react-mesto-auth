@@ -13,7 +13,7 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://artem-from-spb.github.io/mesto-react",
+  "homepage": "https://artem-from-spb.github.io/react-mesto-auth",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
